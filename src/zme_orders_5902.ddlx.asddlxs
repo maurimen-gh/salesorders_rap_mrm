@@ -1,0 +1,123 @@
+@Metadata.layer: #CORE
+
+@UI: { headerInfo: { typeName: 'Orders',
+                   typeNamePlural: 'Orders',
+                   title: { type: #STANDARD,
+                            value: 'OrderID' } },
+                   presentationVariant: [{
+                       sortOrder: [{ by: 'OrderID',
+                                     direction: #DESC }],
+                       visualizations: [{ type: #AS_LINEITEM }] }] }
+
+annotate entity ZORDERS_C_5902 with
+{
+  @UI.facet: [{   id: 'Orders',
+                  purpose: #STANDARD,
+                  type: #IDENTIFICATION_REFERENCE,
+                  label: 'Orders',
+                  position: 10 },
+
+              { id: 'Items',
+                  purpose: #STANDARD,
+                  type: #LINEITEM_REFERENCE,
+                  label: 'Items',
+                  position: 20,
+                  targetElement: '_Items' } ]
+
+  @UI.hidden: true
+  OrderUUID;
+
+  @UI: { lineItem: [{ position: 10,
+                     importance: #HIGH },
+
+                    { position: 10,
+                      importance: #HIGH,
+                      type: #FOR_ACTION,
+                      dataAction: 'acceptTravel',
+                      label: 'Accept Travel' },
+
+                    { position: 20,
+                      importance: #HIGH,
+                      type: #FOR_ACTION,
+                      dataAction: 'rejectTravel',
+                      label: 'Reject Travel' },
+
+                    { position: 30,
+                      importance: #HIGH,
+                      type: #FOR_ACTION,
+                      dataAction: 'deductDiscount',
+                      label: 'Discount',
+                      invocationGrouping: #CHANGE_SET }
+                  ],
+
+         selectionField: [{ position: 10 }],
+
+         identification: [{ position: 10, label: 'Order ID' },
+
+                          { type: #FOR_ACTION,
+                            dataAction: 'acceptTravel',
+                            label: 'Accept Travel',
+                            position: 10 },
+
+                          { type: #FOR_ACTION,
+                            dataAction: 'rejectTravel',
+                            label: 'Reject Travel',
+                            position: 20 },
+
+                           { type: #FOR_ACTION,
+                            dataAction: 'deductDiscount',
+                            label: 'Discount',
+                            position: 30 }
+                         ]
+      }
+  OrderID;
+
+  @UI: { lineItem: [{  position:  20, importance:  #HIGH}],
+        identification: [{ position: 20 }] }
+  Email;
+
+  @UI: { lineItem: [{  position:  30, importance:  #HIGH}],
+         identification: [{ position: 30 }],
+         selectionField: [{ position: 30 }] }
+  Firstname;
+
+  @UI: { lineItem: [{  position:  40, importance:  #MEDIUM }],
+        identification: [{ position: 40 }],
+        selectionField: [{ position: 40 }] }
+  Lastname;
+
+  @UI: { lineItem: [{  position:  50, importance:  #MEDIUM }],
+        identification: [{ position: 50 }],
+        selectionField: [{ position: 50 }] }
+  Country;
+
+  @UI: { lineItem: [{  position:  60, importance:  #HIGH }],
+        identification: [{ position: 60 }] }
+  Createon;
+
+  @UI: { lineItem: [{  position:  70, importance:  #HIGH }],
+          identification: [{ position: 70 }] }
+  Deliverydate;
+
+  @UI: { lineItem: [{  position:  80, importance:  #MEDIUM }],
+         identification: [{ position: 80, label: 'Orderstatus' }],
+         selectionField: [{ position: 80 }],
+         textArrangement: #TEXT_ONLY }
+  Orderstatus;
+
+  @UI: { lineItem: [{  position:  90, importance:  #MEDIUM }],
+         identification: [{ position: 90 }] }
+  Imageurl;
+
+  @UI.hidden: true
+  LocalCreatedBy;
+  @UI.hidden: true
+  LocalCreatedAt;
+  @UI.hidden: true
+  LocalLastChangedBy;
+  @UI.hidden: true
+  LocalLastChangedAt;
+  @UI.hidden: true
+  LastChangedAt;
+
+}
