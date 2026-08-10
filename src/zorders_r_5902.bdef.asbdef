@@ -1,0 +1,112 @@
+managed;
+strict ( 2 );
+with draft;
+
+define behavior for ZORDERS_R_5902 alias Orders
+implementation in class zbp_orders_r_5902 unique
+persistent table zorders_5902
+draft table zorders_d_5902
+lock master
+total etag LastChangedAt
+etag master LocalLastChangedAt
+authorization master ( instance, global )
+//etag master <field_name>
+{
+  create;
+  update;
+  delete;
+
+  association _Items { create ( features : instance, authorization : update ); with draft; }
+
+  field ( numbering : managed, readonly ) OrderUUID;
+
+  field ( readonly ) OrderID,
+  LocalCreatedAt,
+  LocalCreatedBy,
+  LocalLastChangedAt,
+  LocalLastChangedBy;
+
+  field ( mandatory ) Email, Firstname;
+
+  validation validateDates on save { create; field Createon, Deliverydate; }
+
+  determination setTravelNumber on save { create; }
+  determine action validateTwoDates { validation validateDates; }
+
+  side effects
+  {
+    determine action validateTwoDates executed on field Createon, field Deliverydate affects messages;
+  }
+
+  draft action Edit;
+  draft action Activate optimized;
+  draft action Discard;
+  draft action Resume with additional implementation;
+
+  draft determine action Prepare
+  {
+    validation validateDates;
+
+    validation Items~validateUnitofmeasure;
+  }
+
+  mapping for zorders_5902
+    {
+      OrderUUID          = order_uuid;
+      OrderID            = order_id;
+      Email              = email;
+      Firstname          = firstname;
+      Lastname           = lastname;
+      Country            = country;
+      Createon           = createon;
+      Deliverydate       = deliverydate;
+      Orderstatus        = orderstatus;
+      Imageurl           = imageurl;
+      LocalCreatedBy     = local_created_by;
+      LocalCreatedAt     = local_created_at;
+      LocalLastChangedBy = local_last_changed_by;
+      LocalLastChangedAt = local_last_changed_at;
+      LastChangedAt      = last_changed_at;
+    }
+}
+
+define behavior for ZITEMS_R_5902 alias Items
+implementation in class zbp_items_r_5902 unique
+persistent table zitems_5902
+draft table zitems_d_5902
+lock dependent by _Orders
+authorization dependent by _Orders
+etag master LocalLastChangedAt
+{
+  update;
+  delete;
+
+  association _Orders { with draft; }
+
+  field ( numbering : managed, readonly ) ItemUUID;
+  field ( readonly ) OrderUUID, ItemID, LocalLastChangedAt;
+  field ( mandatory ) Name, Quantity, Unitofmeasure;
+
+  determination setItemsNumber on save { create; }
+
+  validation validateUnitofmeasure on save { create; field Unitofmeasure; }
+
+  mapping for zitems_5902
+    {
+      ItemUUID           = item_uuid;
+      OrderUUID          = parent_uuid;
+      ItemID             = item_id;
+      Name               = name;
+      Description        = description;
+      Releasedate        = releasedate;
+      Discontinueddate   = discontinueddate;
+      Price              = price;
+      Height             = height;
+      Width              = width;
+      Depth              = depth;
+      Quantity           = quantity;
+      Unitofmeasure      = unitofmeasure;
+      LocalLastChangedAt = local_last_changed_at;
+    }
+
+}

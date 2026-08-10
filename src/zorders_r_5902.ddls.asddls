@@ -6,7 +6,7 @@ define root view entity ZORDERS_R_5902
 
   composition [0..*] of ZITEMS_R_5902 as _Items
 {
-  key id                    as OrderUUID,
+  key order_uuid            as OrderUUID,
       order_id              as OrderID,
       email                 as Email,
       firstname             as Firstname,

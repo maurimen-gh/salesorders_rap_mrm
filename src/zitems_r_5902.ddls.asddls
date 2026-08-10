@@ -7,7 +7,7 @@ define view entity ZITEMS_R_5902
 
   association to parent ZORDERS_R_5902 as _Orders on $projection.OrderUUID = _Orders.OrderUUID
 {
-  key id                    as ItemUUID,
+  key item_uuid             as ItemUUID,
       parent_uuid           as OrderUUID,
       item_id               as ItemID,
       name                  as Name,
