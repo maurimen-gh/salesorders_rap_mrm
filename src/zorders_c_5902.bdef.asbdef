@@ -9,6 +9,7 @@ define behavior for ZORDERS_C_5902 alias Orders
   use delete;
 
   use action validateTwoDates;
+  use action validateMail;
 
   use action Edit;
   use action Activate;

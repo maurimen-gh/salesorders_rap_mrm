@@ -20,22 +20,22 @@ authorization master ( instance, global )
 
   field ( numbering : managed, readonly ) OrderUUID;
 
-  field ( readonly ) OrderID,
-  LocalCreatedAt,
-  LocalCreatedBy,
-  LocalLastChangedAt,
-  LocalLastChangedBy;
+  field ( readonly ) OrderID, LocalCreatedAt, LocalCreatedBy, LocalLastChangedAt, LocalLastChangedBy;
 
-  field ( mandatory ) Email, Firstname;
+  field ( mandatory ) Email;
 
   validation validateDates on save { create; field Createon, Deliverydate; }
+  validation validateEmail on save { create; update; }
+  //validation validateEmail on save { create; field Email, Firstname; }
 
   determination setTravelNumber on save { create; }
   determine action validateTwoDates { validation validateDates; }
+  determine action validateMail { validation validateEmail; }
 
   side effects
   {
     determine action validateTwoDates executed on field Createon, field Deliverydate affects messages;
+    determine action validateMail executed on field Email affects messages;
   }
 
   draft action Edit;
@@ -46,6 +46,7 @@ authorization master ( instance, global )
   draft determine action Prepare
   {
     validation validateDates;
+    validation validateEmail;
 
     validation Items~validateUnitofmeasure;
   }
