@@ -56,11 +56,11 @@ CLASS zcl_insert_data_5902 IMPLEMENTATION.
     DATA lt_items TYPE TABLE OF zitems_5902.
 
     lt_orders = VALUE #(
-      ( client = sy-mandt order_uuid = lv_uuid1 order_id = '1000' email = lt_customer[ 1 ]-email_address firstname = lt_customer[ 1 ]-first_name lastname = lt_customer[ 1 ]-last_name country = lt_customer[ 1 ]-country_code
+      ( client = sy-mandt order_uuid = lv_uuid1 order_id = 1000 email = lt_customer[ 1 ]-email_address firstname = lt_customer[ 1 ]-first_name lastname = lt_customer[ 1 ]-last_name country = lt_customer[ 1 ]-country_code
         createon = sy-datum deliverydate = sy-datum orderstatus = 1 )
-      ( client = sy-mandt order_uuid = lv_uuid2 order_id = '1001' email = lt_customer[ 2 ]-email_address firstname = lt_customer[ 2 ]-first_name lastname = lt_customer[ 2 ]-last_name country = lt_customer[ 2 ]-country_code
+      ( client = sy-mandt order_uuid = lv_uuid2 order_id = 1001 email = lt_customer[ 2 ]-email_address firstname = lt_customer[ 2 ]-first_name lastname = lt_customer[ 2 ]-last_name country = lt_customer[ 2 ]-country_code
         createon = sy-datum deliverydate = sy-datum orderstatus = 2 )
-      ( client = sy-mandt order_uuid = lv_uuid3 order_id = '1002' email = lt_customer[ 3 ]-email_address firstname = lt_customer[ 3 ]-first_name lastname = lt_customer[ 3 ]-last_name country = lt_customer[ 3 ]-country_code
+      ( client = sy-mandt order_uuid = lv_uuid3 order_id = 1002 email = lt_customer[ 3 ]-email_address firstname = lt_customer[ 3 ]-first_name lastname = lt_customer[ 3 ]-last_name country = lt_customer[ 3 ]-country_code
         createon = sy-datum deliverydate = sy-datum orderstatus = 2 )
     ).
 

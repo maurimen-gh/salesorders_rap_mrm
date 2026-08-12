@@ -63,13 +63,16 @@ CLASS lhc_Orders IMPLEMENTATION.
     FIELDS MAX( order_id )
     INTO @DATA(max_orderid).
 
+    "DATA(lv_aux_orderid) = CONV i( max_orderid ) + 1.
+    "max_orderid = CONV zde_id_5902( lv_aux_orderid ).
+
     "EML
     MODIFY ENTITIES OF zorders_r_5902 IN LOCAL MODE
     ENTITY Orders
     UPDATE
     FIELDS ( OrderID )
     WITH VALUE #( FOR ord IN orders INDEX INTO i ( %tky = ord-%tky
-                                                   OrderID = max_orderid + 1 ) ).
+                                                   OrderID = max_orderid + i ) ).
 
   ENDMETHOD.
 

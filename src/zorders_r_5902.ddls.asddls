@@ -8,8 +8,11 @@ define root view entity ZORDERS_R_5902
 {
   key order_uuid            as OrderUUID,
       order_id              as OrderID,
+      @Semantics.eMail.address: true
       email                 as Email,
+      @Semantics.name.prefix: true
       firstname             as Firstname,
+      @Semantics.name.suffix: true
       lastname              as Lastname,
       country               as Country,
       createon              as Createon,
